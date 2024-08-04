@@ -1,0 +1,47 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model SensorData {
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  timestamp DateTime?
+  typeField String?
+  updatedAt DateTime  @updatedAt
+  value     Float?
+}
+
+model StreetLight {
+  brightness Float?
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  location   String?
+  status     String?
+  updatedAt  DateTime @updatedAt
+}
+
+model Pedestrian {
+  count      Int?
+  createdAt  DateTime  @default(now())
+  detectedAt DateTime?
+  id         String    @id @default(cuid())
+  location   String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
